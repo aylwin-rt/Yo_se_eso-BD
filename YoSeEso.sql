@@ -32,27 +32,36 @@ GO
  )
  GO
 
-CREATE TABLE Usuario(	
+ CREATE TABLE Usuario(	
 	idUsuario VARCHAR(50) NOT NULL,
 	nombres VARCHAR(100) NOT NULL,
 	apellidos VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL,
 	idPregunta INT NULL,
 	idRespuesta INT NOT NULL,
-	CONSTRAINT PK_Usuario PRIMARY KEY (idUsuario),
-	CONSTRAINT FK_Usuario_Pregunta FOREIGN KEY (idPregunta) REFERENCES Pregunta (idPregunta),
-	CONSTRAINT FK_Usuario_Respuesta FOREIGN KEY (idRespuesta) REFERENCES Respuesta (idRespuesta)
+	CONSTRAINT PK_Usuario PRIMARY KEY (idUsuario)
 )
 GO
 
-CREATE TABLE UsuarioPregunta(
 
-
+ CREATE TABLE UsuarioPregunta(
+	idUsuario VARCHAR(50) NOT NULL,
+	idPregunta INT NOT NULL,		
+	CONSTRAINT PK_UsuarioPregunta PRIMARY KEY (idUsuario,idPregunta),
+	CONSTRAINT FK_UsuarioPregunta_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario),
+	CONSTRAINT FK_UsuarioPregunta_Pregunta FOREIGN KEY (idPregunta) REFERENCES Pregunta (idPregunta)
 )
-
-
-
  GO
+
+  CREATE TABLE UsuarioRespuesta(
+	idUsuario VARCHAR(50) NOT NULL,
+	idRespuesta INT NOT NULL,		
+	CONSTRAINT PK_UsuarioRespuesta PRIMARY KEY (idUsuario,idRespuesta),
+	CONSTRAINT FK_UsuarioRespuesta_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario),
+	CONSTRAINT FK_UsuarioRespuesta_Pregunta FOREIGN KEY (idRespuesta) REFERENCES Respuesta (idRespuesta)
+)
+ GO
+
   
 --INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('aylwin100','Aylwin Edithson','Rivera Trujillo','aylwin.rt@gmail.com')
 --INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('LbErT','Albert Alejandro','Rivera Trujillo','chefsito1999@gmail.com')
