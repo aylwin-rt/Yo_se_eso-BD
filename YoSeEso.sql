@@ -36,9 +36,7 @@ GO
 	idUsuario VARCHAR(50) NOT NULL,
 	nombres VARCHAR(100) NOT NULL,
 	apellidos VARCHAR(100) NOT NULL,
-	email VARCHAR(100) NOT NULL,
-	idPregunta INT NULL,
-	idRespuesta INT NOT NULL,
+	email VARCHAR(100) NOT NULL,	
 	CONSTRAINT PK_Usuario PRIMARY KEY (idUsuario)
 )
 GO
@@ -63,10 +61,12 @@ GO
  GO
 
   
---INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('aylwin100','Aylwin Edithson','Rivera Trujillo','aylwin.rt@gmail.com')
---INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('LbErT','Albert Alejandro','Rivera Trujillo','chefsito1999@gmail.com')
---INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('Dríviliz','Adrian Renato','Rivera Trujillo','ema.renato@gmail.com')
---INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('Tu_Grinkita','Betsi Analy','Llagenta Bernal','tu_llaguenta@gmail.com')
+INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('aylwin100','Aylwin Edithson','Rivera Trujillo','aylwin.rt@gmail.com')
+INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('LbErT','Albert Alejandro','Rivera Trujillo','chefsito1999@gmail.com')
+INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('Dríviliz','Adrian Renato','Rivera Trujillo','ema.renato@gmail.com')
+INSERT INTO Usuario(IdUsuario,nombres,apellidos,email) VALUES ('Tu_Grinkita','Betsi Analy','Llagenta Bernal','tu_llaguenta@gmail.com')
+
+INSERT INTO Pregunta(Pregunta,idImagen,idUsuario) VALUES ('5+5',NULL,'aylwin100')
 
 
 --INSERT INTO Pregunta (Pregunta) VALUES ('5+5')
@@ -80,3 +80,5 @@ GO
 
 --SELECT * FROM Usuario
 --SELECT * FROM Pregunta
+
+--SELECT * FROM Usuario INNER JOIN UsuarioPregunta ON Usuario.idUsuario=UsuarioPregunta.idUsuario INNER JOIN Pregunta ON UsuarioPregunta.idUsuario=Pregunta.idUsuario
