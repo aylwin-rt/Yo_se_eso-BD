@@ -98,13 +98,13 @@ INSERT INTO UsuarioPregunta (idUsuario,idPregunta) VALUES ('Dríviliz',4)
 --SELECT * FROM Usuario INNER JOIN UsuarioPregunta ON Usuario.idUsuario=UsuarioPregunta.idUsuario
 --INNER JOIN Pregunta ON UsuarioPregunta.idPregunta=Pregunta.idPregunta
 
-CREATE PROCEDURE SP_insertar_usuario(
-@idUsuario VARCHAR(50),
-@nombres VARCHAR(100),
-@apellidos VARCHAR(100),
-@email VARCHAR(100))
-AS
-INSERT INTO Usuario (idUsuario,nombres,apellidos,email) VALUES (@idUsuario,@nombres,@apellidos,@email)
+--CREATE PROCEDURE SP_insertar_usuario(
+--@idUsuario VARCHAR(50),
+--@nombres VARCHAR(100),
+--@apellidos VARCHAR(100),
+--@email VARCHAR(100))
+--AS
+--INSERT INTO Usuario (idUsuario,nombres,apellidos,email) VALUES (@idUsuario,@nombres,@apellidos,@email)
 
 --EXEC SP_insertar_usuario 'Japo1202','Jorge Arturo','Pérez Ortiz','jorgearturo1202@hotmail.com'
 
