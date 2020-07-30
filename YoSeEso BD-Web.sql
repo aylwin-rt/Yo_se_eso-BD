@@ -78,6 +78,8 @@ INSERT INTO Pregunta(nombre,fecha,tema,idUsuario,rutaImagen) VALUES ('50/10 Esta
 
 --SELECT * FROM PREGUNTA
 
+INSERT INTO Respuesta(nombre,fecha,idUsuario,rutaImagen,idPregunta) VALUES ('Espero que te ayude esta explicación',GETDATE(),1,'Images/Image5.jpg',2)
+
 
 GO
 
@@ -171,10 +173,62 @@ CREATE procedure [dbo].[spGrabarPregunta]
 @rutaImagen varchar(150)
 as
  insert into Pregunta(nombre,fecha,tema,idUsuario,rutaImagen) values(@nombre,GETDATE(),@tema,@idUsuario,@rutaImagen)
+ GO
  
- EXECUTE [dbo].[spGrabarPregunta] '2x10','Multiplicación','2',null
+ --EXECUTE [dbo].[spGrabarPregunta] '2x10','Multiplicación','2',null
 
 --SELECT * FROM Usuario
 --SELECT * FROM Pregunta
 --SELECT * FROM Respuesta
 --SELECT * FROM UsuarioPregunta
+
+--EXECUTE [dbo].[spObtenerPreguntasPorCodigo] 10
+
+CREATE PROCEDURE [dbo].[spGrabarRespuesta]
+@nombre VARCHAR(200),
+@idUsuario INT,
+@rutaImagen VARCHAR(150),
+@idPregunta INT
+AS
+INSERT INTO Respuesta(nombre,fecha,idUsuario,rutaImagen,idPregunta) VALUES (@nombre,GETDATE(),@idUsuario,@rutaImagen,@idPregunta)
+GO
+--EXECUTE [dbo].[spGrabarRespuesta] 'Yo resuelvo así esa integral',1,'',3
+
+CREATE procedure [dbo].[spActualizarRespuesta]
+@idRespuesta int,
+@nombre varchar(200),
+@rutaImagen varchar(150)
+as
+ update Respuesta set nombre = @nombre,
+				  rutaImagen= @rutaImagen
+				  --rutaImagen = ''
+				  where idRespuesta = @idRespuesta
+
+GO
+
+--EXECUTE [dbo].[spActualizarRespuesta] 4,'Yo resuelvo así esta integral',''
+
+CREATE PROCEDURE [dbo].[spEliminarRespuesta]
+@idRespuesta int
+as
+ delete from Respuesta
+ where idRespuesta = @idRespuesta
+GO
+
+--EXECUTE [dbo].[spEliminarRespuesta] 5
+
+CREATE PROCEDURE [dbo].[spObtenerRespuestasPorCodigo]
+@idPregunta int
+as
+select idRespuesta,nombre,fecha,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario on Respuesta.idUsuario=Usuario.idUsuario
+where idPregunta=@idPregunta
+GO
+--Aquí arriba puedo mandar el código del usuario si es necesario
+
+--EXECUTE [dbo].[spObtenerRespuestasPorCodigo] 2
+
+CREATE PROCEDURE [dbo].[spObtenerRespuestas]
+as
+ select idRespuesta,nombre,fecha,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario ON Respuesta.idUsuario=Usuario.idUsuario
+GO
+--Aquí arriba puedo mandar el código del usuario si es necesario
