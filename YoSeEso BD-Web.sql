@@ -140,11 +140,11 @@ as
  where Usuario.idUsuario= @idUsuario
 GO
 
-create procedure [dbo].[spEliminarPregunta]
+CREATE procedure [dbo].[spEliminarPregunta]
 @idPregunta int
-as
- delete from Pregunta
- where idPregunta = @idPregunta
+as 
+ delete from Respuesta where idPregunta = @idPregunta
+ delete from Pregunta where idPregunta = @idPregunta
 
 GO
 
@@ -217,18 +217,29 @@ GO
 
 --EXECUTE [dbo].[spEliminarRespuesta] 5
 
-CREATE PROCEDURE [dbo].[spObtenerRespuestasPorCodigo]
+CREATE PROCEDURE [dbo].[spObtenerRespuestasPorPregunta]
 @idPregunta int
 as
-select idRespuesta,nombre,fecha,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario on Respuesta.idUsuario=Usuario.idUsuario
+select idRespuesta,nombre,fecha,Respuesta.idUsuario,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario on Respuesta.idUsuario=Usuario.idUsuario
 where idPregunta=@idPregunta
 GO
 --Aquí arriba puedo mandar el código del usuario si es necesario
 
---EXECUTE [dbo].[spObtenerRespuestasPorCodigo] 2
+--EXECUTE [dbo].[spObtenerRespuestasPorPregunta] 24
 
-CREATE PROCEDURE [dbo].[spObtenerRespuestas]
-as
- select idRespuesta,nombre,fecha,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario ON Respuesta.idUsuario=Usuario.idUsuario
-GO
+
+
+--CREATE PROCEDURE [dbo].[spObtenerRespuestas]
+--as
+-- select idRespuesta,nombre,fecha,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario ON Respuesta.idUsuario=Usuario.idUsuario
+--GO
 --Aquí arriba puedo mandar el código del usuario si es necesario
+
+CREATE PROCEDURE [dbo].[spObtenerRespuestasPorUsuario]
+@idUsuario int
+as
+select idRespuesta,nombre,fecha,Respuesta.idUsuario,(Usuario.nombres+' '+Usuario.apellidos) as nombreUsuario,rutaImagen,idPregunta from Respuesta inner join Usuario on Respuesta.idUsuario=Usuario.idUsuario
+where Respuesta.idUsuario=@idUsuario
+GO
+
+--EXECUTE [dbo].[spObtenerRespuestasPorUsuario] 1
